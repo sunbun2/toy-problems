@@ -74,3 +74,43 @@ class TodoList extends React.Component {
         );
     }
 }
+
+
+class TaskNameForm extends React.Component {
+    constructor(props) {
+        console.log("tasknameform")
+        super(props);
+        this.state = {value: ''};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event) {
+        console.log("handle submit")
+        const taskList = this.props.taskList;
+        // create a task object
+        event.preventDefault();
+        const task = {id:Date.now(), name: this.state.value, 
+        dueDate: new Date()};
+        // add the task object to the task list
+        this.props.onAddTask(task);
+    }
+
+    handleChange(event) {
+        console.log("handle change");
+        // code to set the state of the component
+        this.setState({value: event.target.value});
+    }
+
+    render() {
+        console.log("bottom render");
+        return(
+            <form onSubmit={this.handleSubmit}>
+                <input type="text" value={this.state.value} 
+                onChange={this.handleChange}/>
+                <input type="submit" value="Add Task" />
+            </form>
+        );
+    }
+}
